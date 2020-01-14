@@ -1,3 +1,4 @@
+# PART 1
 # import json
 import json
 
@@ -32,3 +33,22 @@ print(value_month)
 # Save results to a json file
 with open('precipitation_per_month_seattle.json', 'w', encoding='utf8') as file:
     json.dump(value_month, file)
+
+# PART 2
+
+# Calculate sum of precipitation over the whole year
+total_precipitation = 0
+for value in value_month:
+    total_precipitation = total_precipitation + value
+print(total_precipitation)
+
+# Calculate relative precipitation per month
+# relative precipitation = value/total_precipitation
+relative_precipitation = [0]*12
+for month in range(12):
+    relative_precipitation[month] = value_month[month] / total_precipitation
+print(relative_precipitation)
+
+# Save results to a json file
+with open('relative_precipitation_per_month_seattle.json', 'w', encoding='utf8') as file:
+    json.dump(relative_precipitation, file)
