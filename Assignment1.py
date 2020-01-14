@@ -11,7 +11,7 @@ with open('precipitation.json', encoding='utf8') as file:
 seattle_code = 'GHCND:US1WAKG0038'
 
 # Create an empty list
-value_month = [0]*12 # create a list of 12 0s
+value_month = [0]*12 # create a list of 12 0s as a starting point for each month
 
 # Loop over dictionaries for Seattle
 for measure in precipitation_dict:
@@ -21,7 +21,7 @@ for measure in precipitation_dict:
         date_split = date.split('-') 
         month = date_split[1]
     # count values for every month
-        value_month[int(month)-1] += (measure['value'])
+        value_month[int(month)-1] += (measure['value']) # by doing -1, the index and month integer are the same
         
 print(value_month)
 
@@ -52,3 +52,17 @@ print(relative_precipitation)
 # Save results to a json file
 with open('relative_precipitation_per_month_seattle.json', 'w', encoding='utf8') as file:
     json.dump(relative_precipitation, file)
+     
+     
+precipitation_dictionary = {
+"Seattle": {
+	"station": "GHCND:US1WAKG0038", 
+	"state": "WA", 
+	"totalMonthlyPrecipitation": [value_month], 
+	"relativeMonthlyPrecipitation": [relative_precipitation], 
+	"totalYearlyPrecipitation": total_precipitation,
+	}
+}
+
+with open('total_precipitation_dictionary.json', 'w', encoding='utf8') as file:
+    json.dump(precipitation_dictionary, file)
